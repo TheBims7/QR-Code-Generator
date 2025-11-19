@@ -95,7 +95,7 @@
         return;
       }
 
-      QRCode.toCanvas(canvas, text, { width: 350, margin: 2 }, function (error) {
+      QRCode.toCanvas(canvas, text, { width: 400, margin: 2 }, function (error) {
         if (error) console.error(error);
         else console.log("✅ QR code berhasil dibuat!");
       });
@@ -144,4 +144,5 @@
   </script>
 </body>
 </html>
+
 
