@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+        background: #05a7e7;
+    }
+    canvas {
+        border: 2px solid black;
+        margin-bottom: 20px;
+        background: whitesmoke;
+    }
+    input, select, ::picker(select) {
+        appearance: base-select;
+        background: #2e2e2e;
+        color: white;
+        padding: 8px;
+        width: 300px;
+        margin-top: 10px;
+        outline: none;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+    ::picker(select) {
+        border: none;
+        background-color: #080808;
+        margin: .2rem 0;
+    }
+    input::placeholder {
+        color: whitesmoke;
+    }
+    option {
+        background-color: #080808;
+    }
+    option:checked {
+        background: #0de705;
+    }
+    button {
+        margin: 10px;
+        background: #0125f3;
+        color: wheat;
+        border: none;
+        padding: 10px 50px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+    button:hover {
+        background: #010d55;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔳 QR Code Generator</h2>
+  <canvas id="canvas" width="350" height="350"></canvas><br>
+
+  <label>Masukkan teks atau link website: 
+    <small><i>*tekan Enter untuk membuat QR</i></small>
+  </label><br>
+  <input type="text" id="qrInput" placeholder="contoh: https://google.com" onchange="generateQR()">
+  
+  <br><br>
+  <label for="qrSize">Pilih ukuran download:</label><br>
+  <select id="qrSize">
+    <option value="150">150 x 150 px</option>
+    <option value="200">200 x 200 px</option>
+    <option value="300">300 x 300 px</option>
+    <option value="400">400 x 400 px</option>
+    <option value="500" selected>500 x 500 px</option>
+    <option value="800">800 x 800 px</option>
+  </select>
+  
+  <br><br>
+  <button onclick="downloadQR()">Download</button>
+
+  <!-- Library QRCode.js -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const qrInput = document.getElementById("qrInput");
+    const qrSizeSelect = document.getElementById("qrSize");
+
+    // Fungsi untuk menampilkan QR di layar (350px)
+    function generateQR() {
+      const text = qrInput.value.trim();
+      if (text === "") {
+        alert("⚠️ Isi teks atau link terlebih dahulu!");
+        return;
+      }
+
+      QRCode.toCanvas(canvas, text, { width: 350, margin: 2 }, function (error) {
+        if (error) console.error(error);
+        else console.log("✅ QR code berhasil dibuat!");
+      });
+    }
+
+    // Fungsi untuk mendownload QR sesuai ukuran yang dipilih
+    function downloadQR() {
+      const text = qrInput.value.trim();
+      if (text === "") {
+        alert("Silakan buat QR Code terlebih dahulu!");
+        return;
+      }
+
+      const size = parseInt(qrSizeSelect.value);
+
+      // Buat canvas baru dengan ukuran sesuai pilihan
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = size;
+      tempCanvas.height = size;
+
+      QRCode.toCanvas(tempCanvas, text, { width: size, margin: 1 }, function (error) {
+        if (error) {
+          console.error(error);
+          alert("Gagal membuat QR Code untuk diunduh!");
+          return;
+        }
+
+        const dataURL = tempCanvas.toDataURL("image/png");
+        let filename = text.replace(/[^a-z0-9]/gi, "_").substring(0, 20) || "qrcode";
+
+        const link = document.createElement("a");
+        link.download = filename + "_" + size + "px.png";
+        link.href = dataURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+
+    // Tekan Enter langsung generate QR
+    qrInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        generateQR();
+      }
+    });
+  </script>
+</body>
+</html>
