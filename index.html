@@ -146,7 +146,7 @@
       let qrSize = 400;     // default untuk desktop
 
       if (window.innerWidth <= 500) {
-        qrSize = 350;       // untuk mobile
+        qrSize = 300;       // untuk mobile
       }
 
       QRCode.toCanvas(canvas, text, { width: qrSize, margin: 2 }, function (error) {
@@ -213,6 +213,7 @@
   </script>
 </body>
 </html>
+
 
 
 
