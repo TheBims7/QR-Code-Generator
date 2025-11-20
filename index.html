@@ -175,6 +175,17 @@
 
         // Kosongkan input
         document.getElementById('qrInput').value = "";
+
+        let qrReset = 350;     // default untuk desktop
+  
+        if (window.innerWidth <= 560) {
+          qrReset = 290;       // untuk mobile
+        }
+  
+        QRCode.toCanvas(canvas, text, { width: qrReset, margin: 2 }, function (error) {
+          if (error) console.error(error);
+          else console.log("✅ QR code berhasil direset!");
+        });
     }
 
     // Fungsi untuk mendownload QR sesuai ukuran yang dipilih
@@ -213,6 +224,7 @@
   </script>
 </body>
 </html>
+
 
 
 
