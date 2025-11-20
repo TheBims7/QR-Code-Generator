@@ -176,6 +176,9 @@
         // Atur ulang ukuran canvas kembali ke awal
         canvas.width = qrReset;
         canvas.height = qrReset;
+
+        canvas.style.width = qrReset + "px";
+        canvas.style.height = qrReset + "px";
       
         // Menghapus semua isi canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -226,6 +229,7 @@
   </script>
 </body>
 </html>
+
 
 
 
