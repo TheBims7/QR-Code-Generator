@@ -178,11 +178,11 @@
         canvas.height = qrReset;
       
         // Menghapus semua isi canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.width);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // (Opsional) bisa tambah background putih
+        // Background (opsional)
         ctx.fillStyle = "whitesmoke";
-        ctx.fillRect(0, 0, canvas.width, canvas.width);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Kosongkan input
         document.getElementById('qrInput').value = "";
@@ -226,6 +226,7 @@
   </script>
 </body>
 </html>
+
 
 
 
