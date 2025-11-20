@@ -176,6 +176,12 @@
         // Kosongkan input
         document.getElementById('qrInput').value = "";
 
+        const text = qrInput.value.trim();
+        if (text === "") {
+          alert("Silakan buat QR Code terlebih dahulu!");
+          return;
+        }
+
         let qrReset = 350;     // default untuk desktop
   
         if (window.innerWidth <= 560) {
@@ -224,6 +230,7 @@
   </script>
 </body>
 </html>
+
 
 
 
