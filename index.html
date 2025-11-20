@@ -166,32 +166,21 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
-        // Menghapus semua isi canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // (Opsional) bisa tambah background putih
-        ctx.fillStyle = "whitesmoke";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Kosongkan input
-        document.getElementById('qrInput').value = "";
-
-        const text = qrInput.value.trim();
-        if (text === "") {
-          alert("Silakan buat QR Code terlebih dahulu!");
-          return;
-        }
-
         let qrReset = 350;     // default untuk desktop
   
         if (window.innerWidth <= 560) {
           qrReset = 290;       // untuk mobile
         }
-  
-        QRCode.toCanvas(canvas, text, { width: qrReset, margin: 2 }, function (error) {
-          if (error) console.error(error);
-          else console.log("✅ QR code berhasil direset!");
-        });
+      
+        // Menghapus semua isi canvas
+        ctx.clearRect(0, 0, canvas.qrReset, canvas.qrReset);
+
+        // (Opsional) bisa tambah background putih
+        ctx.fillStyle = "whitesmoke";
+        ctx.fillRect(0, 0, canvas.qrReset, canvas.qrReset);
+
+        // Kosongkan input
+        document.getElementById('qrInput').value = "";
     }
 
     // Fungsi untuk mendownload QR sesuai ukuran yang dipilih
@@ -230,6 +219,7 @@
   </script>
 </body>
 </html>
+
 
 
 
