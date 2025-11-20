@@ -8,41 +8,57 @@
     body {
         font-family: Arial, sans-serif;
         text-align: center;
-        margin-top: 50px;
-        background: #00fff2;
+        background: #05a7e7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+    }
+    .box {
+        width: 50%;
+        height: 90%;
+        background: azure;
+        border-radius: 10px;
+        padding: 20px;
     }
     canvas {
         border: 2px solid black;
         margin-bottom: 20px;
-        background: whitesmoke;
+        background: aliceblue;
     }
     input, select, ::picker(select) {
         appearance: base-select;
-        background: #2e2e2e;
-        color: white;
-        padding: 8px;
+        background: #cccccc;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
         width: 300px;
         margin-top: 10px;
         outline: none;
-        border: 1px solid black;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
         overflow: hidden;
+    }
+    select {
+      cursor: pointer;
     }
     ::picker(select) {
         border: none;
-        background-color: #080808;
         margin: .2rem 0;
     }
     input::placeholder {
-        color: whitesmoke;
+        color: rgb(0, 0, 0);
+        font-size: 15px;
     }
     option {
-        background-color: #080808;
+        background-color: #cccccc;
     }
     option:checked {
         background: #0de705;
     }
     button {
-        margin: 10px;
+        width: 180px;
+        margin: 10px 2px;
         background: #0125f3;
         color: wheat;
         border: none;
@@ -50,14 +66,26 @@
         cursor: pointer;
         border-radius: 5px;
         font-size: 15px;
+        font-weight: 600;
         margin-bottom: 30px;
     }
     button:hover {
-        background: #010d55;
+        background: #00ff37;
+        color: black;
+    }
+    button#clear:hover {
+        background: #ff0000;
+        color: white;
+    }
+    @media(max-width: 800px) {
+      .box {
+        width: 90%;
+    }
     }
   </style>
 </head>
 <body>
+  <div class="box">
   <h2>🔳 QR Code Generator</h2>
   <canvas id="canvas" width="350" height="350"></canvas><br>
 
@@ -78,8 +106,9 @@
   </select>
   
   <br><br>
+  <button id="clear" onclick="resetCanvas()">Reset</button>
   <button onclick="downloadQR()">Download</button>
-
+  </div>
   <!-- Library QRCode.js -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
   <script>
@@ -87,7 +116,7 @@
     const qrInput = document.getElementById("qrInput");
     const qrSizeSelect = document.getElementById("qrSize");
 
-    // Fungsi untuk menampilkan QR di layar (350px)
+    // Fungsi untuk menampilkan QR di layar (400px)
     function generateQR() {
       const text = qrInput.value.trim();
       if (text === "") {
@@ -99,6 +128,21 @@
         if (error) console.error(error);
         else console.log("✅ QR code berhasil dibuat!");
       });
+    }
+
+    function resetCanvas() {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Menghapus semua isi canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // (Opsional) bisa tambah background putih
+        ctx.fillStyle = "whitesmoke";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Kosongkan input
+        document.getElementById('qrInput').value = "";
     }
 
     // Fungsi untuk mendownload QR sesuai ukuran yang dipilih
@@ -144,7 +188,3 @@
   </script>
 </body>
 </html>
-
-
-
-
