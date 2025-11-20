@@ -97,7 +97,7 @@
         width: 250px;
       }
       button {
-        width: 80%;
+        width: 90%;
         margin-bottom: 10px;
       }
     }
@@ -135,6 +135,13 @@
     const qrInput = document.getElementById("qrInput");
     const qrSizeSelect = document.getElementById("qrSize");
 
+    // Tekan Enter langsung generate QR
+    qrInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        generateQR();
+      }
+    });
+    
     // Fungsi untuk menampilkan QR di layar (400px)
     function generateQR() {
       const text = qrInput.value.trim();
@@ -203,16 +210,10 @@
         document.body.removeChild(link);
       });
     }
-
-    // Tekan Enter langsung generate QR
-    qrInput.addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        generateQR();
-      }
-    });
   </script>
 </body>
 </html>
+
 
 
 
