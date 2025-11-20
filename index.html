@@ -166,21 +166,28 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
-        let qrReset = 350;     // default untuk desktop
-  
+        // Tentukan ukuran default sesuai perangkat
+        let qrReset = 350; // desktop
+    
         if (window.innerWidth <= 560) {
-          qrReset = 290;       // untuk mobile
+            qrReset = 290; // mobile
         }
+    
+        // Atur ulang ukuran canvas kembali ke awal
+        canvas.width = qrReset;
+        canvas.height = qrReset;
       
         // Menghapus semua isi canvas
-        ctx.clearRect(0, 0, canvas.qrReset, canvas.qrReset);
+        ctx.clearRect(0, 0, canvas.width, canvas.width);
 
         // (Opsional) bisa tambah background putih
         ctx.fillStyle = "whitesmoke";
-        ctx.fillRect(0, 0, canvas.qrReset, canvas.qrReset);
+        ctx.fillRect(0, 0, canvas.width, canvas.width);
 
         // Kosongkan input
         document.getElementById('qrInput').value = "";
+
+        console.log("Canvas berhasil di-reset ke ukuran awal:", qrReset);
     }
 
     // Fungsi untuk mendownload QR sesuai ukuran yang dipilih
@@ -219,6 +226,7 @@
   </script>
 </body>
 </html>
+
 
 
 
